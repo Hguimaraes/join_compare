@@ -12,8 +12,10 @@
 #Data values are integer that varies from 0 to 99
 
 import random as rd
+import sys
 
-size = 10000;
+size = int(sys.argv[1])
+print "dataset size: " + sys.argv[1]
 relations = {}
 
 #generating primary keys for left and right tables

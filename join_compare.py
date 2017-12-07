@@ -16,6 +16,7 @@ right_un = "righttable_unordered.txt"
 
 delimiter = ", "
 
+#Obs: for datasets bigger than 10⁵, do not run the Nested Loop algorithms
 #1a. Nested Loop in ordered and unordered files
 #For this example, no data structure besides the original files are required.
 #Since this is just to compare the matching time, we won't keep the results of the joins.
@@ -112,3 +113,33 @@ end = datetime.datetime.now()
 
 print "Hash-Join Time: " + str((end-start).total_seconds()) + "sec."
 print "Joined " + str(joinnum) + " lines."
+
+#1d. BTree Join (Index-Based Join)
+#We'll be using BTrees.OOBTree module. The library file is included in the project folder
+#to install it, do "pip install -filename-"
+#this method is very similar to the method studied before, but it uses the BTree data structure
+#instead of hash tables
+
+print "Calculating BTree Join time"
+start = datetime.datetime.now()
+btree = OOBTree()
+position = 1
+right = open(right_un)
+for line in right:
+	r_data = line.split(delimiter)
+	btree.update({r_data[1]:position})
+	position += 1
+joinnum = 0
+left = open(left_un)
+for line in left:
+	l_data = line.split(delimiter)
+	position = btree[l_data[0]]
+	r_data = linecache.getline(right_un, position).split(delimiter)
+	if l_data[0] == r_data[1]:
+		joinnum += 1
+end = datetime.datetime.now()
+
+print "BTree Join Time: " + str((end-start).total_seconds()) + "sec."
+print "Joined " + str(joinnum) + " lines."
+
+print "All done!"
