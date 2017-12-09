@@ -13,42 +13,33 @@
 
 import random as rd
 import sys
+import datetime
 
 size = int(sys.argv[1])
 print "dataset size: " + sys.argv[1]
-relations = {}
 
-#generating primary keys for left and right tables
+# Function to generate a random number between 0 and 99 to be our data
+randval = lambda: rd.randint(0,99)
 
+# Generating primary keys for left and right tables
 left_pkeys = range(size)
 right_pkeys = range(size)
 
 #creating relations:
 #format: {left table pkey, right table pkey}
-rk = range(size)
-for i in right_pkeys:
-	relations[i] = rk.pop(rk.index(rd.choice(rk)))
+rk = rd.sample(range(size), size)
+relations = {i: val for i, val in enumerate(rk)}
 
 #generating left table
 #format: "pkey, data"
-lt_data = []
-for k in left_pkeys:
-	data = str(k)
-	data += ", "
-	data += str(rd.randint(0,99))
-	lt_data.append(data)
+print "generating left table"
+lt_data = ["{}, {}".format(k, randval()) for k in left_pkeys]
 
-print "generating right table"
+
 #generating right table
 #format: "pkey, fkey, data"
-rt_data = []
-for i in right_pkeys:
-	data = str(i)
-	data += ", "
-	data += str(relations[i])
-	data += ", "
-	data += str(rd.randint(0,99))
-	rt_data.append(data)
+print "generating right table"
+rt_data = ["{}, {}, {}".format(k, relations[k], randval()) for k in right_pkeys]
 
 print "Datasets generated!"
 
