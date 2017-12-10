@@ -116,7 +116,7 @@ print "Joined " + str(joinnum) + " lines."
 
 #1d. BTree Join (Index-Based Join)
 #We'll be using BTrees.OOBTree module. The library file is included in the project folder
-#to install it, do "pip install -filename-"
+#to install it, do "pip install BTrees"
 #this method is very similar to the method studied before, but it uses the BTree data structure
 #instead of hash tables
 

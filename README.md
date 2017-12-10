@@ -20,7 +20,7 @@ with the following format:
 
 after running the generator script, install the **BTree.OBBTree** module by running:
 
-	$ pip install BTrees-4.4.1-cp27-cp27mu-manylinux1_x86_64.whl
+	$ pip install BTrees
 
 after that, you may run the **join_compare.py** file by running:
 
